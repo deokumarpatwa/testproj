@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZMDR_BULKDATA_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="InHeader" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Tablename"/>
+                    <PropertyRef Name="Requestorsaprole"/>
+                </Key>
+                <Property Name="Tablename" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Table Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Requestorsaprole" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Requester  Role" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Source" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Source" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Isdataload" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Dataload" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Isoverwritewithnull" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is OverwriteNull" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Isfutureversion" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Future Allowed" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Workflowid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Workflow ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NAVINDATA" Relationship="ZMDR_BULKDATA_SRV.INHEADER_INDATA" FromRole="FromRole_INHEADER_INDATA" ToRole="ToRole_INHEADER_INDATA"/>
+                <NavigationProperty Name="NAVOUTVALIDDATA" Relationship="ZMDR_BULKDATA_SRV.INHEADER_OUTVALIDDATA" FromRole="FromRole_INHEADER_OUTVALIDDATA" ToRole="ToRole_INHEADER_OUTVALIDDATA"/>
+                <NavigationProperty Name="NAVOUTHEADER" Relationship="ZMDR_BULKDATA_SRV.INHEADER_OUTHEADER" FromRole="FromRole_INHEADER_OUTHEADER" ToRole="ToRole_INHEADER_OUTHEADER"/>
+                <NavigationProperty Name="NAVOUTINVALIDDATA" Relationship="ZMDR_BULKDATA_SRV.INHEADER_OUTINVALIDDATA" FromRole="FromRole_INHEADER_OUTINVALIDDATA" ToRole="ToRole_INHEADER_OUTINVALIDDATA"/>
+                <NavigationProperty Name="NAVOUTCREATEDATA" Relationship="ZMDR_BULKDATA_SRV.INHEADER_OUTCREATEDATA" FromRole="FromRole_INHEADER_OUTCREATEDATA" ToRole="ToRole_INHEADER_OUTCREATEDATA"/>
+                <NavigationProperty Name="NAVOUTUPDATEDATA" Relationship="ZMDR_BULKDATA_SRV.INHEADER_OUTUPDATEDATA" FromRole="FromRole_INHEADER_OUTUPDATEDATA" ToRole="ToRole_INHEADER_OUTUPDATEDATA"/>
+                <NavigationProperty Name="NAVOUTRETMESSAGE" Relationship="ZMDR_BULKDATA_SRV.INHEADER_OUTRETMESSAGE" FromRole="FromRole_INHEADER_OUTRETMESSAGE" ToRole="ToRole_INHEADER_OUTRETMESSAGE"/>
+            </EntityType>
+            <EntityType Name="OutHeader" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Tablename"/>
+                </Key>
+                <Property Name="Tablename" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Table Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Createcount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Create Count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validcount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Valid Record Count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Updatecount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Update Count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Invalidcount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Invalid Count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Workflowid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Workflow ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="CompleteWorkItem" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Abapworkitemid"/>
+                </Key>
+                <Property Name="Action" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Action" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Approvercomments" Type="Edm.String" Nullable="false" MaxLength="300" sap:unicode="false" sap:label="Approver Remarks" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Actualagent" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Actual Agent" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Subclass" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Sub-Class" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Nextapprover" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="More Approval?" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Nextstage" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Next Approval Stage" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Abapworkitemid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="ABAP Workitem ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="OutInvalidData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="CODE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="8192" sap:unicode="false" sap:label="SLD Agent: Replacement for type &quot;string&quot; in releases &lt; 4.5" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Rownumber" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="INT4" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="BulkTemp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Bulknumber"/>
+                </Key>
+                <Property Name="Bulknumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Bulk Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Tablename" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Table Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bulkdata" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Bulk Data" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Workflowid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Workflow ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Actiontype" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Action Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Initiationdate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="Initiation Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Requeststatus" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Request Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="InData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Data"/>
+                </Key>
+                <Property Name="Data" Type="Edm.String" Nullable="false" MaxLength="8192" sap:unicode="false" sap:label="SLD Agent: Replacement for type &quot;string&quot; in releases &lt; 4.5" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="OutCreateData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Data"/>
+                </Key>
+                <Property Name="Data" Type="Edm.String" Nullable="false" MaxLength="8192" sap:unicode="false" sap:label="SLD Agent: Replacement for type &quot;string&quot; in releases &lt; 4.5" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="OutUpdateData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Data"/>
+                </Key>
+                <Property Name="Data" Type="Edm.String" Nullable="false" MaxLength="8192" sap:unicode="false" sap:label="SLD Agent: Replacement for type &quot;string&quot; in releases &lt; 4.5" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="OutValidData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Data"/>
+                </Key>
+                <Property Name="Data" Type="Edm.String" Nullable="false" MaxLength="8192" sap:unicode="false" sap:label="SLD Agent: Replacement for type &quot;string&quot; in releases &lt; 4.5" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="TriggerBulkWF" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Workflowid"/>
+                </Key>
+                <Property Name="Isfutureallowed" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Future Allowed" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Abapworkflowid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="ABAP Workitem ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Approverstage" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Approver Stage" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Updateztabonly" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Update Z Tab?" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Operationtype" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Operation Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Requestorrole" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Requester  Role" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Systemname" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="System" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Hierarchy" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Hierarchy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Isversioned" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Versioned" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Category" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Category" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Subclass" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Sub-Class" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Tablename" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Table Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Workflowid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Workflow ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Requestorid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Requestor ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Requestoremailid" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="Requestor Email Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validrecordcount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Valid Record Count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Requestorremarks" Type="Edm.String" Nullable="false" MaxLength="300" sap:unicode="false" sap:label="Requestor Remarks" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Isdeleterequired" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Deletion Required" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Isoverwritewithnull" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is OverwriteNull" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="OutRetMessage" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Type"/>
+                </Key>
+                <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Message type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="220" sap:unicode="false" sap:label="Message Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="INHEADER_OUTVALIDDATA" sap:content-version="1">
+                <End Type="ZMDR_BULKDATA_SRV.InHeader" Multiplicity="1" Role="FromRole_INHEADER_OUTVALIDDATA"/>
+                <End Type="ZMDR_BULKDATA_SRV.OutValidData" Multiplicity="*" Role="ToRole_INHEADER_OUTVALIDDATA"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_INHEADER_OUTVALIDDATA">
+                        <PropertyRef Name="Requestorsaprole"/>
+                        <PropertyRef Name="Tablename"/>
+                    </Principal>
+                    <Dependent Role="ToRole_INHEADER_OUTVALIDDATA">
+                        <PropertyRef Name="Data"/>
+                        <PropertyRef Name="Data"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="INHEADER_OUTHEADER" sap:content-version="1">
+                <End Type="ZMDR_BULKDATA_SRV.InHeader" Multiplicity="1" Role="FromRole_INHEADER_OUTHEADER"/>
+                <End Type="ZMDR_BULKDATA_SRV.OutHeader" Multiplicity="*" Role="ToRole_INHEADER_OUTHEADER"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_INHEADER_OUTHEADER">
+                        <PropertyRef Name="Requestorsaprole"/>
+                        <PropertyRef Name="Tablename"/>
+                    </Principal>
+                    <Dependent Role="ToRole_INHEADER_OUTHEADER">
+                        <PropertyRef Name="Tablename"/>
+                        <PropertyRef Name="Tablename"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="INHEADER_OUTINVALIDDATA" sap:content-version="1">
+                <End Type="ZMDR_BULKDATA_SRV.InHeader" Multiplicity="1" Role="FromRole_INHEADER_OUTINVALIDDATA"/>
+                <End Type="ZMDR_BULKDATA_SRV.OutInvalidData" Multiplicity="*" Role="ToRole_INHEADER_OUTINVALIDDATA"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_INHEADER_OUTINVALIDDATA">
+                        <PropertyRef Name="Requestorsaprole"/>
+                        <PropertyRef Name="Tablename"/>
+                    </Principal>
+                    <Dependent Role="ToRole_INHEADER_OUTINVALIDDATA">
+                        <PropertyRef Name="Code"/>
+                        <PropertyRef Name="Code"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="INHEADER_OUTCREATEDATA" sap:content-version="1">
+                <End Type="ZMDR_BULKDATA_SRV.InHeader" Multiplicity="1" Role="FromRole_INHEADER_OUTCREATEDATA"/>
+                <End Type="ZMDR_BULKDATA_SRV.OutCreateData" Multiplicity="*" Role="ToRole_INHEADER_OUTCREATEDATA"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_INHEADER_OUTCREATEDATA">
+                        <PropertyRef Name="Requestorsaprole"/>
+                        <PropertyRef Name="Tablename"/>
+                    </Principal>
+                    <Dependent Role="ToRole_INHEADER_OUTCREATEDATA">
+                        <PropertyRef Name="Data"/>
+                        <PropertyRef Name="Data"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="INHEADER_OUTUPDATEDATA" sap:content-version="1">
+                <End Type="ZMDR_BULKDATA_SRV.InHeader" Multiplicity="1" Role="FromRole_INHEADER_OUTUPDATEDATA"/>
+                <End Type="ZMDR_BULKDATA_SRV.OutUpdateData" Multiplicity="*" Role="ToRole_INHEADER_OUTUPDATEDATA"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_INHEADER_OUTUPDATEDATA">
+                        <PropertyRef Name="Requestorsaprole"/>
+                        <PropertyRef Name="Tablename"/>
+                    </Principal>
+                    <Dependent Role="ToRole_INHEADER_OUTUPDATEDATA">
+                        <PropertyRef Name="Data"/>
+                        <PropertyRef Name="Data"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="INHEADER_OUTRETMESSAGE" sap:content-version="1">
+                <End Type="ZMDR_BULKDATA_SRV.InHeader" Multiplicity="*" Role="FromRole_INHEADER_OUTRETMESSAGE"/>
+                <End Type="ZMDR_BULKDATA_SRV.OutRetMessage" Multiplicity="*" Role="ToRole_INHEADER_OUTRETMESSAGE"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_INHEADER_OUTRETMESSAGE">
+                        <PropertyRef Name="Requestorsaprole"/>
+                        <PropertyRef Name="Tablename"/>
+                    </Principal>
+                    <Dependent Role="ToRole_INHEADER_OUTRETMESSAGE">
+                        <PropertyRef Name="Message"/>
+                        <PropertyRef Name="Message"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="INHEADER_INDATA" sap:content-version="1">
+                <End Type="ZMDR_BULKDATA_SRV.InHeader" Multiplicity="1" Role="FromRole_INHEADER_INDATA"/>
+                <End Type="ZMDR_BULKDATA_SRV.InData" Multiplicity="*" Role="ToRole_INHEADER_INDATA"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_INHEADER_INDATA">
+                        <PropertyRef Name="Requestorsaprole"/>
+                        <PropertyRef Name="Tablename"/>
+                    </Principal>
+                    <Dependent Role="ToRole_INHEADER_INDATA">
+                        <PropertyRef Name="Data"/>
+                        <PropertyRef Name="Data"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZMDR_BULKDATA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="InHeaderSet" EntityType="ZMDR_BULKDATA_SRV.InHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OutHeaderSet" EntityType="ZMDR_BULKDATA_SRV.OutHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CompleteWorkItemSet" EntityType="ZMDR_BULKDATA_SRV.CompleteWorkItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OutInvalidDataSet" EntityType="ZMDR_BULKDATA_SRV.OutInvalidData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="BulkTempSet" EntityType="ZMDR_BULKDATA_SRV.BulkTemp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="InDataSet" EntityType="ZMDR_BULKDATA_SRV.InData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OutCreateDataSet" EntityType="ZMDR_BULKDATA_SRV.OutCreateData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OutUpdateDataSet" EntityType="ZMDR_BULKDATA_SRV.OutUpdateData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OutValidDataSet" EntityType="ZMDR_BULKDATA_SRV.OutValidData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TriggerBulkWFSet" EntityType="ZMDR_BULKDATA_SRV.TriggerBulkWF" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OutRetMessageSet" EntityType="ZMDR_BULKDATA_SRV.OutRetMessage" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="INHEADER_OUTVALIDDATASet" Association="ZMDR_BULKDATA_SRV.INHEADER_OUTVALIDDATA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InHeaderSet" Role="FromRole_INHEADER_OUTVALIDDATA"/>
+                    <End EntitySet="OutValidDataSet" Role="ToRole_INHEADER_OUTVALIDDATA"/>
+                </AssociationSet>
+                <AssociationSet Name="INHEADER_OUTUPDATEDATASet" Association="ZMDR_BULKDATA_SRV.INHEADER_OUTUPDATEDATA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InHeaderSet" Role="FromRole_INHEADER_OUTUPDATEDATA"/>
+                    <End EntitySet="OutUpdateDataSet" Role="ToRole_INHEADER_OUTUPDATEDATA"/>
+                </AssociationSet>
+                <AssociationSet Name="INHEADER_OUTRETMESSAGESet" Association="ZMDR_BULKDATA_SRV.INHEADER_OUTRETMESSAGE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InHeaderSet" Role="FromRole_INHEADER_OUTRETMESSAGE"/>
+                    <End EntitySet="OutRetMessageSet" Role="ToRole_INHEADER_OUTRETMESSAGE"/>
+                </AssociationSet>
+                <AssociationSet Name="INHEADER_OUTCREATEDATASet" Association="ZMDR_BULKDATA_SRV.INHEADER_OUTCREATEDATA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InHeaderSet" Role="FromRole_INHEADER_OUTCREATEDATA"/>
+                    <End EntitySet="OutCreateDataSet" Role="ToRole_INHEADER_OUTCREATEDATA"/>
+                </AssociationSet>
+                <AssociationSet Name="INHEADER_INDATASet" Association="ZMDR_BULKDATA_SRV.INHEADER_INDATA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InHeaderSet" Role="FromRole_INHEADER_INDATA"/>
+                    <End EntitySet="InDataSet" Role="ToRole_INHEADER_INDATA"/>
+                </AssociationSet>
+                <AssociationSet Name="INHEADER_OUTINVALIDDATASet" Association="ZMDR_BULKDATA_SRV.INHEADER_OUTINVALIDDATA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InHeaderSet" Role="FromRole_INHEADER_OUTINVALIDDATA"/>
+                    <End EntitySet="OutInvalidDataSet" Role="ToRole_INHEADER_OUTINVALIDDATA"/>
+                </AssociationSet>
+                <AssociationSet Name="INHEADER_OUTHEADERSet" Association="ZMDR_BULKDATA_SRV.INHEADER_OUTHEADER" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InHeaderSet" Role="FromRole_INHEADER_OUTHEADER"/>
+                    <End EntitySet="OutHeaderSet" Role="ToRole_INHEADER_OUTHEADER"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <atom:link rel="self" href="http://cloud9.way2erp.us:8000/sap/opu/odata/sap/ZMDR_BULKDATA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://cloud9.way2erp.us:8000/sap/opu/odata/sap/ZMDR_BULKDATA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
