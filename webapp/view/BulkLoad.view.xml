@@ -80,7 +80,7 @@
                                         text="{i18n>btnDownloadTemplate}"
                                         type="Emphasized"
                                         width="100%"
-                                        icon="sap-icon://sap-icon://excel-attachment"
+                                        icon="sap-icon://excel-attachment"
                                         visible="false"
                                         press=".onTemplateDownload"
                                     />
@@ -93,14 +93,14 @@
                                 <f:fields>
                                     <u:FileUploader
                                         id="fu_upload"
-                                        placeholder="{i18n>lblchoosefile}"
+                                        placeholder="{i18n>lblFile}"
                                         name="myFileUpload"
                                         uploadComplete="handleUploadComplete"
                                         change="onFileUpload"
                                         style="Emphasized"
                                         fileType="XLSX, xlsx"
                                         width="100%"
-                                        icon="sap-icon://sap-icon://open-folder"
+                                        icon="sap-icon://open-folder"
                                         tooltip="Upload the file"
                                         uploadOnChange="true"
                                     />
@@ -111,7 +111,7 @@
                                     <Button
                                         id="btn_validate"
                                         text="Validate Data"
-                                        icon="sap-icon://sap-icon://validate"
+                                        icon="sap-icon://validate"
                                         type="Emphasized"
                                         press="handleValidateData"
                                         class="sapUiSmallMarginEnd"
@@ -246,21 +246,21 @@
                             <cells>
                                 <Text
                                     id="cell_validcount"
-                                    text="{oHeaderDataModel>ValidCount}"
+                                    text="{oHeaderDataModel>Validcount}"
                                     class="valid"
                                 />
                                 <Text
                                     id="cell_invalidcount"
-                                    text="{oHeaderDataModel>InvalidCount}"
+                                    text="{oHeaderDataModel>Invalidcount}"
                                     class="invalid"
                                 />
                                 <Text
                                     id="cell_markupdate"
-                                    text="{oHeaderDataModel>UpdateCount}"
+                                    text="{oHeaderDataModel>Updatecount}"
                                 />
                                 <Text
                                     id="cell_markcreate"
-                                    text="{oHeaderDataModel>CreateCount}"
+                                    text="{oHeaderDataModel>Createcount}"
                                 />
                                 <Text
                                     id="cell_totalcount"

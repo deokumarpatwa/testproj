@@ -102,6 +102,17 @@
         {
           "uri": "css/style.css"
         }
+      ],
+      "js": [
+        {
+          "uri": "lib/xlsx.full.min.js"
+        },
+        {
+          "uri": "lib/jszip.min.js"
+        },
+        {
+          "uri": "lib/FileSaver.min.js"
+        }
       ]
     },
     "routing": {
