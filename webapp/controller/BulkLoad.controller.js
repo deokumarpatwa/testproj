@@ -63,6 +63,11 @@ sap.ui.define(
         workflowidentered: undefined,
 
         onInit: function () {
+
+          var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          var oRoute = oRouter.getRoute("approver");
+
+          oRoute.attachPatternMatched(this._onPatternMatched, this);
           var temp = [],
             filteredCategory = [],
             uniqueCat = [];
@@ -127,6 +132,13 @@ sap.ui.define(
           self.workflowidentered = "";
           self.getView().byId("cb_overwritenull").setVisible(false);
           self.getView().byId("cb_updatezonly").setVisible(false);
+        },
+
+        _onPatternMatched: function(oEvent) {
+          var oArgs = oEvent.getParameter("arguments");
+          var workflowId = oArgs.WFID;
+          console.log("Workflow ID:", workflowId);
+          // Use the WFID to load the relevant task or data
         },
 
         handleUploadComplete: function (oEvent) {
@@ -332,9 +344,9 @@ sap.ui.define(
                   var oInData = {};
                   oEntry.Tablename = self.tableName;
                   oEntry.Source = "UI";
-                  oEntry.Isdataload = self.dataload === 'Y' ? true : false;
-                  oEntry.Isoverwritewithnull = self.Preservenull === 'Y' ? true : false;
-                  oEntry.Isfutureversion = self.futurever === 'Y' ? true : false;
+                  oEntry.Isdataload = self.dataload;// === 'Y' ? true : false;
+                  oEntry.Isoverwritewithnull = self.Preservenull;// === 'Y' ? true : false;
+                  oEntry.Isfutureversion = self.futurever;// === 'Y' ? true : false;
                   oEntry.Workflowid = self.workflowidentered;
                   var itemData = [];
                   oEntry.NAVOUTINVALIDDATA = [];
@@ -423,7 +435,7 @@ sap.ui.define(
                           self.validRecordCount =
                             oResponse.data.NAVOUTHEADER.results[0].Validcount;
 
-                          if (self.ValidRecordsCount > 0) {
+                          if (self.validRecordCount > 0) {
                             self.getView().byId("lbl_warning").setVisible(true);
                             self.getView().byId("btn_submit").setVisible(true);
                             self.getView().byId("btn_cancel").setVisible(true);
@@ -786,16 +798,16 @@ sap.ui.define(
 
             self.openBusyDialog();
 
-            var oDataModel = self.getOwnerComponent().getModel("validatedata");
+            var oDataModel = self.getOwnerComponent().getModel();
             self.dataload = "Y";
 
             var oEntry = {};
-            oEntry.TableName = self.tableName;
+            oEntry.Tablename = self.tableName;
             oEntry.Source = "UI";
-            oEntry.Dataload = self.dataload;
-            oEntry.preserveNull = self.preserveNull;
-            oEntry.futureAllowed = self.futureAllowed;
-            oEntry.WorkflowId = self.workflowidentered;
+            oEntry.Isdataload = self.dataload;// === 'Y' ? true : false;
+            oEntry.Isoverwritewithnull = self.preserveNull;// === 'Y' ? true : false;
+            oEntry.Isfutureversion = self.futureAllowed;// === 'Y' ? true : false;
+            oEntry.Workflowid = self.workflowidentered;
 
             var itemData = [];
 
@@ -805,7 +817,7 @@ sap.ui.define(
               });
             }
 
-            oEntry.InDataSet = itemData;
+            oEntry.NAVINDATA = itemData;
 
             oEntry.NAVOUTRETMESSAGE = [];
             var lv_res4 = {};
@@ -815,15 +827,16 @@ sap.ui.define(
 
             oEntry.NAVOUTHEADER = [];
             var lv_res5 = {};
-            lv_res5.CreateCount = 0;
-            lv_res5.UpdateCount = 0;
-            lv_res5.ValidCount = 0;
-            lv_res5.InvalidCount = 0;
-            lv_res5.Workflowid = 0;
-            lv_res5.Msg = "";
+            lv_res5.Createcount = 0;
+            lv_res5.Updatecount = 0;
+            lv_res5.Validcount = 0;
+            lv_res5.Invalidcount = 0;
+            lv_res5.Workflowid = "";
+            lv_res5.Tablename = "";
             oEntry.NAVOUTHEADER[0] = lv_res5;
 
-            oEntry.Requesterrole = self.rolename;
+            oEntry.Requestorsaprole = self.rolename;
+            oEntry.Requestorremarks = self.sValue;
 
             oDataModel.create("/InHeaderSet", oEntry, {
               method: "POST",
@@ -832,18 +845,18 @@ sap.ui.define(
                 self.WorkflowId =
                   oResponse.data.NAVOUTHEADER.results[0].Workflowid;
 
-                var oUserData = self
+                /*var oUserData = self
                   .getOwnerComponent()
                   .getModel("usermodel")
                   .getData();
                 self.oUserId = oUserData.id;
-                self.ReqEmailId = oUserData.email;
+                self.ReqEmailId = oUserData.email; */
 
-                self.onTriggerWF();
+                //self.onTriggerWF();
 
                 MessageBox.information(
                   "Request submitted successfully with workflow Id " +
-                  oResponse.data.NAVOUTHEADER.results[0].WorkflowId,
+                  oResponse.data.NAVOUTHEADER.results[0].Workflowid,
                   {
                     onClose: function (oAction) {
                       window.location.reload();
@@ -863,33 +876,36 @@ sap.ui.define(
           }
         },
 
+        onCancel: function (oEvent) {
+          window.location.reload();
+        },
+
         onTriggerWF: function () {
-          var oDataModel = self.getOwnerComponent().getModel("validatedata");
+          var oDataModel = self.getOwnerComponent().getModel();
 
           var oEntry = {};
-          oEntry.futureAllowed = self.futureVer;
-          oEntry.Versioned = self.versioned;
+          oEntry.Isfutureallowed = self.futureVer;
+          oEntry.Isversioned = self.versioned;
           oEntry.Category = self.categoryName;
-          oEntry.TableName = self.tableName;
-          oEntry.WorkflowId = self.WorkflowId.toString();
-          oEntry.RequesterId = self.oUserId;
-          oEntry.ReqEmailId = self.ReqEmailId;
-          oEntry.ValidRecordsCount = self;
-          filesaver.ValidRecordsCount;
-          oEntry.RequesterComments = self.sValue;
+          oEntry.Tablename = self.tableName;
+          oEntry.Workflowid = self.WorkflowId.toString();
+          oEntry.Requestorid = self.oUserId;
+          oEntry.Requestoremailid = self.ReqEmailId;
+          oEntry.ValidRecordsCount = self.ValidRecordsCount;
+          oEntry.Requestorremarks = self.sValue;
           oEntry.DeleteFlag = "N";
-          oEntry.Preservenull = self.Preservenull;
-          oEntry.OperationType = "BULK UPDATE";
-          oEntry.Requesterrole = self.rolename;
-          oEntry.updatezonly = self.updateztabonly;
+          oEntry.Isoverwritewithnull = self.Preservenull;
+          oEntry.Operationtype = "BULK UPDATE";
+          oEntry.Requestorrole = self.rolename;
+          oEntry.Updateztabonly = self.updateztabonly;
 
-          oEntry.ApproverStage = "APPROVER";
-          oEntry.System = "INTAPPTICS";
-          oEntry.Hierarchy = "BULK UPDATE";
+          oEntry.Approverstage = "APPROVER";
+          oEntry.Systemname = "MDR";
+          oEntry.Hierarchy = "ZMDR_ACCOUNT";
           if (self.tableappr == "Y") {
-            self.SubClass = self.tableName;
+            self.Subclass = self.tableName;
           } else {
-            self.SubClass = self.categoryName;
+            self.Subclass = "ZMDR_ACCOUNTApprover";
           }
 
           oDataModel.create("/TrigBulkUploadWFSet", oEntry, {

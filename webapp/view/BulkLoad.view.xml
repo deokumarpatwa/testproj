@@ -121,7 +121,7 @@
                                         text="Reload"
                                         icon="sap-icon://refresh"
                                         type="Emphasized"
-                                        press="handleReload"
+                                        press="handleReloadPress"
                                     />
                                 </f:fields>
                             </f:FormElement>

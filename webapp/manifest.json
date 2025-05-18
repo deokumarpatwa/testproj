@@ -123,7 +123,12 @@
         "viewPath": "com.intapptics.mdbulkload.view",
         "controlAggregation": "pages",
         "controlId": "app",
-        "clearControlAggregation": false
+        "clearControlAggregation": false,
+        "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
       },
       "routes": [
         {
@@ -131,6 +136,13 @@
           "pattern": "",
           "target": [
             "main"
+          ]
+        },
+        {
+          "name": "approver",
+          "pattern": "WFID={WFID}",
+          "target": [
+            "approver"
           ]
         }
       ],
@@ -141,6 +153,17 @@
           "clearControlAggregation": false,
           "viewId": "BulkLoad",
           "viewName": "BulkLoad"
+        },
+        "approver":{
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "BulkApprover",
+          "viewName": "BulkApprover"
+        },
+        "notFound": {
+          "viewId": "notFound",
+          "viewName": "NotFound",
+          "transition": "show"
         }
       }
     },

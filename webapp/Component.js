@@ -12,7 +12,10 @@ sap.ui.define([
 
         return UIComponent.extend("com.intapptics.mdbulkload.Component", {
             metadata: {
-                manifest: "json"
+                manifest: "json",
+                config: {
+                    fullWidth: true
+                }
             },
 
             /**
